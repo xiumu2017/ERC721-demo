@@ -1,0 +1,94 @@
+pragma solidity >=0.5.0 <0.7.0;
+
+import "./ERC20Item.sol";
+
+
+contract ERC20Wallet {
+    address public owner;
+
+    mapping(address => address[]) list;
+    // mapping(uint => address) idToContractAddrMap;
+
+    event transferRemark(
+        address _to,
+        address _from,
+        uint256 _amount,
+        string remark
+    );
+
+    constructor() public {
+        owner = msg.sender;
+    }
+
+    /**
+     * 用户新增代币 (Dapp 需要同时增加授权)
+     * @param _contractAddr 合约地址
+     */
+    function addToken(address _contractAddr) public {
+        // TODO 判断是否是合约地址
+        require(_contractAddr != address(0), "requrie");
+        list[msg.sender].push(_contractAddr);
+    }
+
+    /**
+     * 查询用户代币列表（合约地址）
+     */
+    function getTokens() public view returns (address[] memory) {
+        return list[msg.sender];
+    }
+
+    /**
+     * 根据合约地址查询代币信息
+     * @param _contractAddr 合约地址
+     */
+    function setRewardAmount(address _contractAddr, uint256 rewardAmount)
+        public
+    {
+        ERC20Item token = ERC20Item(_contractAddr);
+        token.setRewardAmount(rewardAmount);
+    }
+
+    /**
+     * 根据合约地址查询代币信息
+     * @param _contractAddr 合约地址
+     */
+    function getTokenInfo(address _contractAddr)
+        public
+        view
+        returns (string memory name, string memory symbol, uint256 balance)
+    {
+        ERC20Item token = ERC20Item(_contractAddr);
+        return (token.name(), token.symbol(), token.balanceOf(msg.sender));
+    }
+
+    /**
+     * 转账
+     * @param _contractAddr 合约地址
+     * @param _to 目标地址
+     * @param _amount 转账数量
+     */
+    function transfer(address _contractAddr, address _to, uint256 _amount)
+        public
+    {
+        ERC20Item token = ERC20Item(_contractAddr);
+        uint256 balance = token.balanceOf(msg.sender);
+        require(balance > _amount, "amount must not bigger than balance");
+        token.transferItem(_to, _amount);
+    }
+
+    /**
+     * 转账带备注
+     * @param _contractAddr 合约地址
+     * @param _to 目标地址
+     * @param _amount 转账数量
+     */
+    function transferWithRemark(
+        address _contractAddr,
+        address _to,
+        uint256 _amount,
+        string memory remark
+    ) public {
+        this.transfer(_contractAddr, _to, _amount);
+        emit transferRemark(_to, msg.sender, _amount, remark);
+    }
+}
