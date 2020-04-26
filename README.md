@@ -19,3 +19,12 @@
 5. 允许合约发布者设置每笔交易产生几枚挖矿收益(代币形式, 自动发送给区块打包者的账户)
 6. 转账时允许提交转账备注，并产生转账备注事件
 7. 将合约发布到Ropsten测试链并发布支持MetaMask的DAPP
+
+Ropsten测试链合约地址：
+ERC721  
+合约地址：0x1921A6F4247c4f686640764d856265248Fa079FE  
+account：0xd583e8Ba0237df57AC043b92F9fBB965cB861Fb8  
+
+ERC20  
+合约地址1：0xbB7d4C244D5a29D6F7CaC41248d3189ff820e0AC  
+合约地址2：0x0c8f6d145891a8D1D6EDCcc4DdcCeDFd6610AA23
