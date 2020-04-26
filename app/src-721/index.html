@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Homework-ERC721</title>
+</head>
+<style>
+  input,
+  select {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  table {
+    width: 50%;
+  }
+</style>
+<script src="index.js"></script>
+
+<body>
+  <div>
+    <h2>ERC721 Dapp</h2>
+    <h3>合约OwnerAddress：</h3>
+    <p id="owner"></p>
+    <button onclick="App.queryTotalSupply()">查询token-总量</button>
+    <p id="total">?</p>
+  </div>
+  <div>
+    <label>地址[msg.sender]：</label>
+    <select id="address" onchange="App.changeAccount()">
+      <option value="">请选择</option>
+    </select>
+    <button onclick="App.queryTokenList()">查询代币列表</button>
+    <div>
+      <table id="tokenListView">
+        <tr>
+          <th>#</th>
+          <th>TokenId</th>
+          <th>Name</th>
+          <th>Desc</th>
+          <th>Uri</th>
+          <th>Owner</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div>
+    <h3>新增Token</h3>
+    <label for="addr">目标地址</label>
+    <input type="text" id="addr" />
+    <label for="TokenName">TokenName</label>
+    <input type="text" id="TokenName" />
+    <label for="TokenDesc">TokenDesc</label>
+    <input type="text" id="TokenDesc" />
+    <label for="uri">Uri</label>
+    <input type="text" id="uri" />
+    <button onclick="App.addToken()">新增Token</button>
+  </div>
+
+  <div>
+    <h3>查询Token信息</h3>
+    <label for="tokenId">TokenId：</label>
+    <input type="text" id="tokenId" placeholder="请输入tokenId" />
+    <label for="_toAddr">_to地址：</label>
+    <select id="_toAddr">
+      <option value="">请选择</option>
+    </select>
+    <button onclick="App.queryTokenInfoById()">查询TokenInfo</button>
+    <button onclick="App.burn()">销毁Token</button>
+    <button onclick="App.transfer()">转赠Token</button>
+    <br />
+  </div>
+</body>
+
+</html>

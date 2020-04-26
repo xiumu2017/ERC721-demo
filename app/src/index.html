@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Homework-ERC721</title>
+  <title>Homework-ERC20</title>
 </head>
 <style>
   input,
@@ -19,57 +19,58 @@
 
 <body>
   <div>
-    <h2>ERC721 Dapp</h2>
-    <h3>合约OwnerAddress：</h3>
-    <p id="owner"></p>
-    <button onclick="App.queryTotalSupply()">查询token-总量</button>
-    <p id="total">?</p>
+    <h2>ERC20 Dapp</h2>
   </div>
+
+  <div>
+    <h3>ERC20合约设置</h3>
+    <label for="contractAddrSelect"">合约地址：</label>
+    <select id="contractAddrSelect" onchange="App.contractChange()">
+      <option value="">请选择</option>
+      </select>
+      <label for="award_amount">奖励数量：</label>
+      <input id="award_amount" type="number" />
+      <button onclick="App.setRewardAmount()">设置矿工奖励</button>
+      <br />
+  </div>
+  <hr>
   <div>
     <label>地址[msg.sender]：</label>
     <select id="address" onchange="App.changeAccount()">
       <option value="">请选择</option>
     </select>
-    <button onclick="App.queryTokenList()">查询代币列表</button>
     <div>
+      <label for="contractAddr">合约地址：</label>
+      <input type="text" id="contractAddr" />
+      <button onclick="App.addToken()">新增ERC20合约地址</button>
+      <button onclick="App.queryTokens()">查询ERC20代表列表</button>
       <table id="tokenListView">
         <tr>
           <th>#</th>
-          <th>TokenId</th>
           <th>Name</th>
-          <th>Desc</th>
-          <th>Uri</th>
-          <th>Owner</th>
+          <th>Symbol</th>
+          <th>totalSupply</th>
+          <th>balance</th>
+          <th>Addr</th>
         </tr>
       </table>
     </div>
   </div>
-  <div>
-    <h3>新增Token</h3>
-    <label for="addr">目标地址</label>
-    <input type="text" id="addr" />
-    <label for="TokenName">TokenName</label>
-    <input type="text" id="TokenName" />
-    <label for="TokenDesc">TokenDesc</label>
-    <input type="text" id="TokenDesc" />
-    <label for="uri">Uri</label>
-    <input type="text" id="uri" />
-    <button onclick="App.addToken()">新增Token</button>
-  </div>
 
   <div>
-    <h3>查询Token信息</h3>
-    <label for="tokenId">TokenId：</label>
-    <input type="text" id="tokenId" placeholder="请输入tokenId" />
-    <label for="_toAddr">_to地址：</label>
-    <select id="_toAddr">
-      <option value="">请选择</option>
-    </select>
-    <button onclick="App.queryTokenInfoById()">查询TokenInfo</button>
-    <button onclick="App.burn()">销毁Token</button>
-    <button onclick="App.transfer()">转赠Token</button>
-    <br />
+    <h3>转账Transfer</h3>
+    <label for="_to">目标地址</label>
+    <input type="text" id="_to" />
+    <label for="amount">转账数量</label>
+    <input type="text" id="amount" />
+    <label for="remark">转账备注</label>
+    <input type="text" id="remark" />
+    <button onclick="App.transferTo()">发起转账</button>
+    <p id="p1"></p>
+    <p id="p2"></p>
+    <p id="p3"></p>
   </div>
+
 </body>
 
 </html>
